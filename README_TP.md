@@ -14,7 +14,7 @@ Ilo mute li wile `.rpi` (ResourcePack Index) ijo. Pona la tenpo pini la kepeken 
 
 ## Jo en Kepeken
 
-- **Kama Jo lon nasin pona**: [rpref.zip](https://github.com/SusumaarT/RP-Reference/releases/latest/download/rpref.zip)
+- **Kama Jo lon nasin pona**: [rpref.zip](https://github.com/smr10492/RP-Reference/releases/latest/download/rpref.zip)
 - **Kepeken**:
 
     ```batch

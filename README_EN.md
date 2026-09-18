@@ -14,7 +14,7 @@ Some tools depend on `.rpi` (ResourcePack Index) files. It is recommended to run
 
 ## Download and Usage
 
-- **Direct Download**: [rpref.zip](https://github.com/SusumaarT/RP-Reference/releases/latest/download/rpref.zip)
+- **Direct Download**: [rpref.zip](https://github.com/smr10492/RP-Reference/releases/latest/download/rpref.zip)
 - **Usage**:
 
     ```batch

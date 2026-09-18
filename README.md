@@ -14,7 +14,7 @@
 
 ## 下载与使用
 
-- **直接下载**: [rpref.zip](https://github.com/SusumaarT/RP-Reference/releases/latest/download/rpref.zip)
+- **直接下载**: [rpref.zip](https://github.com/smr10492/RP-Reference/releases/latest/download/rpref.zip)
 - **使用方法**:
 
     ```batch
