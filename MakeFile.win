@@ -1,0 +1,113 @@
+# Compiler and flags
+CXX = g++
+TCC = tcc
+PCH_HEADER = src/common.h
+PCH_OUTPUT = src/common.h.gch
+
+# Directories
+BUILD_DIR = build
+BIN_DIR   = bin
+LIB_DIR   = lib
+
+# Include paths
+INCLUDE_PATHS = -Iinclude -Isrc
+
+# Targets
+.PHONY: all pch libs rpref tools clean
+all: pch libs rpref tools
+
+BUILD ?= release 
+ifeq ($(BUILD), debug)
+	CXX_FLAGS = $(INCLUDE_PATHS) \
+		-std=c++23 \
+		-g -O0 -march=x86-64 -mtune=generic \
+		-ffunction-sections -fdata-sections -fno-rtti \
+		-Winvalid-pch -Wall -Wextra \
+		-Wno-comments -Wno-unused-local-typedefs -Wno-unused-parameter \
+		-include $(PCH_HEADER)
+	LDFLAGS = -L$(LIB_DIR) -Wl,--gc-sections,--strip-all
+else
+	CXX_FLAGS = $(INCLUDE_PATHS) \
+		-std=c++23 \
+		-O3 -march=x86-64 -mtune=generic \
+		-ffunction-sections -fdata-sections -fno-rtti \
+		-Winvalid-pch -Wall -Wextra \
+		-Wno-comments -Wno-unused-local-typedefs -Wno-unused-parameter \
+		-include $(PCH_HEADER)
+	LDFLAGS = -L$(LIB_DIR) -static -Wl,--gc-sections,--strip-all
+endif
+
+# Libraries
+LIB_RPR  = $(LIB_DIR)/librpr.a
+LIB_SMCP = $(LIB_DIR)/libsmcp.a
+
+# Library sources
+LIB_RPR_SRC  = src/librpr_unity.cpp
+LIB_SMCP_SRC = src/mcp_stdsyncio.cpp
+
+RPR_SRC_PATH = src/rpref
+MCP_SRCS = $(RPR_SRC_PATH)/main_rpref_impl.cpp $(RPR_SRC_PATH)/main_rpref.cpp
+MCP_OBJS = $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(notdir $(MCP_SRCS)))
+
+# ============================================================
+# PCH: Precompiled Header
+# ============================================================
+pch: $(PCH_OUTPUT)
+$(PCH_OUTPUT): $(PCH_HEADER)
+	$(CXX) -x c++-header $(CXX_FLAGS) -o $@ $<
+
+# ============================================================
+# LIB: Static Libraries
+# ============================================================
+libs: $(LIB_RPR) $(LIB_SMCP)
+$(LIB_RPR): $(BUILD_DIR)/librpr_unity.o | $(LIB_DIR)
+	ar rcs $@ $<
+	strip --strip-debug --strip-unneeded $@
+	ranlib $@
+$(BUILD_DIR)/librpr_unity.o: $(LIB_RPR_SRC) | $(BUILD_DIR)
+	$(CXX) -c $(CXX_FLAGS) -o $@ $<
+
+$(LIB_SMCP): $(BUILD_DIR)/mcp_stdsyncio.o | $(LIB_DIR)
+	ar rcs $@ $<
+	strip --strip-debug --strip-unneeded $@
+	ranlib $@
+$(BUILD_DIR)/mcp_stdsyncio.o: $(LIB_SMCP_SRC) | $(BUILD_DIR)
+	$(CXX) -c $(CXX_FLAGS) -o $@ $<
+
+# ============================================================
+# EXE: rpref, tools
+# ============================================================
+rpref: $(BIN_DIR)/rpr tools
+$(BIN_DIR)/rpr: $(MCP_OBJS) $(LIB_RPR) $(LIB_SMCP) $(PCH_OUTPUT) | $(BIN_DIR)
+	$(CXX) -o $@ $(MCP_OBJS) $(LDFLAGS) -lrpr -lsmcp
+
+TOOLS_SRC_DIR = src/tools
+TOOLS_SRCS    = $(wildcard $(TOOLS_SRC_DIR)/*.c)
+TOOLS_HEADERS = $(wildcard $(TOOLS_SRC_DIR)/*.h)
+TOOLS_EXES    = $(patsubst $(TOOLS_SRC_DIR)/%.c,$(BIN_DIR)/%.exe,$(TOOLS_SRCS))
+TCC_FLAGS     = -I$(TOOLS_SRC_DIR)
+
+tools: $(TOOLS_EXES)
+$(BIN_DIR)/%.exe: $(TOOLS_SRC_DIR)/%.c $(TOOLS_HEADERS) | $(BIN_DIR)
+	$(TCC) $(TCC_FLAGS) -o $@ $<
+
+# ============================================================
+# Object file patterns (using order-only prerequisites for PCH)
+# ============================================================
+$(BUILD_DIR)/main_rpref_impl.o: $(RPR_SRC_PATH)/main_rpref_impl.cpp $(PCH_OUTPUT)
+	$(CXX) -c $(CXX_FLAGS) -o $@ $<
+$(BUILD_DIR)/main_rpref.o: $(RPR_SRC_PATH)/main_rpref.cpp $(PCH_OUTPUT)
+	$(CXX) -c $(CXX_FLAGS) -o $@ $<
+
+# ============================================================
+# Utilities
+# ============================================================
+$(BUILD_DIR) $(LIB_DIR) $(BIN_DIR):
+	@mkdir $@
+
+clean:
+	rmdir /s /q $(BUILD_DIR) $(LIB_DIR) $(BIN_DIR)
+	del   /f /q "$(PCH_OUTPUT)"
+
+# Alias for all clean builds
+rebuild: clean all

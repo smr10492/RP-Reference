@@ -1,0 +1,1 @@
+mingw32-make -j6 -f "MakeFile.win" clean

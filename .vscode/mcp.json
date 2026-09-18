@@ -1,0 +1,10 @@
+{
+	"servers": {
+		"mcp-7762566e?rprmcp@main": {
+			"type": "stdio",
+			"command": "${env:MCP_SERVERS_PATH}\\rpr.exe",
+			"args": ["-mcp"]
+		}
+	},
+	"inputs": []
+}

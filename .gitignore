@@ -1,0 +1,22 @@
+# editor
+.git
+.github
+.trae
+.vscode/*
+!.vscode/c_cpp_properties.json
+!.vscode/mcp.json
+!.vscode/settings.json
+
+# specific
+_oth/
+
+# folders
+bin/
+build/
+lib/
+
+# build
+*.gch
+*.exe
+*.o
+*.a

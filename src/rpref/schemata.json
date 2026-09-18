@@ -1,0 +1,277 @@
+{
+  "ac_to_mmd": {
+    "type": "object",
+    "properties": {
+      "infile_act": {
+        "type": "string",
+        "description": "The name of *.json input file (animation-controller)"
+      },
+      "infile_snm": {
+        "type": "string",
+        "description": "The name of *.json input file (short-name map) for detecting nested call chains",
+        "default": ""
+      },
+      "outfile_mmd": {
+        "type": "string",
+        "description": "The name of *.mmd output file",
+        "default": "a.mmd"
+      },
+      "mmd_format": {
+        "type": "string",
+        "description": "The format of the Mermaid graph (sd: state-diagram, fc: flowchart)",
+        "enum": ["sd", "fc"],
+        "default": "sd"
+      }
+    },
+    "required": ["infile_act"]
+  },
+  "rpi_index": {
+    "type": "object",
+    "properties": {
+      "rp_dir": {
+        "type": "string",
+        "description": "The directory of the Resource Pack"
+      },
+      "outfile_rpi": {
+        "type": "string",
+        "description": "The name of *.rpi output file, recommended to be `ThisRP.rpi`",
+        "default": "ThisRP.rpi"
+      }
+    },
+    "required": ["rp_dir", "outfile_rpi"]
+  },
+  "rpi_find": {
+    "type": "object",
+    "properties": {
+      "infile_rpi": {
+        "type": "string",
+        "description": "The name of *.rpi input file, best to provide",
+        "default": "ThisRP.rpi"
+      },
+      "keys": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The key array of the resource pack (string[])",
+        "default": []
+      }
+    },
+    "required": ["keys"]
+  },
+  "sn_map": {
+    "type": "object",
+    "properties": {
+      "infile_ent": {
+        "type": "string",
+        "description": "The name of *.json input file (entity)"
+      },
+      "infile_rpi": {
+        "type": "string",
+        "description": "The name of *.rpi input file, best to provide",
+        "default": "ThisRP.rpi"
+      },
+      "outfile_snm": {
+        "type": "string",
+        "description": "The output name of *.json file (short-name map)",
+        "default": "ent.json"
+      }
+    },
+    "required": ["infile_ent"]
+  },
+  "bone_coverage": {
+    "type": "object",
+    "properties": {
+      "id_geo": {
+        "type": "string",
+        "description": "The geometry ID"
+      },
+      "id_ani": {
+        "type": "string",
+        "description": "The animation controller ID"
+      },
+      "infile_rpi": {
+        "type": "string",
+        "description": "The name of *.rpi input file, best to provide",
+        "default": "ThisRP.rpi"
+      }
+    },
+    "required": ["id_geo", "id_ani"]
+  },
+  "geo_tree": {
+    "type": "object",
+    "properties": {
+      "id_geo": {
+        "type": "string",
+        "description": "The ID of geometry"
+      },
+      "infile_rpi": {
+        "type": "string",
+        "description": "The name of *.rpi input file, best to provide",
+        "default": "ThisRP.rpi"
+      }
+    },
+    "required": ["id_geo"]
+  },
+  "br_extract": {
+    "type": "object",
+    "properties": {
+      "infiles_br": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The name array of *.brarchive input files (string[])",
+        "default": []
+      }
+    },
+    "required": ["infiles_br"]
+  },
+  "br_zip": {
+    "type": "object",
+    "properties": {
+      "infiles_br": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The name array of *.brarchive input files (string[])",
+        "default": []
+      },
+      "with_data": {
+        "type": "boolean",
+        "description": "(include data) or (only index)",
+        "default": true
+      }
+    },
+    "required": ["infiles_br"]
+  },
+  "br_merge": {
+    "type": "object",
+    "properties": {
+      "infiles_br": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The name array of *.brarchive input files (string[])",
+        "default": []
+      },
+      "outfile_br": {
+        "type": "string",
+        "description": "The name of *.brarchive output file, best to provide",
+        "default": "merged.brarchive"
+      }
+    },
+    "required": ["infiles_br"]
+  },
+  "br_auto": {
+    "type": "object",
+    "properties": {
+      "command": {
+        "type": "string",
+        "description": "The command to run",
+        "enum": ["extract", "zip"]
+      },
+      "rp_dir": {
+        "type": "string",
+        "description": "The directory of the Resource Pack"
+      }
+    },
+    "required": ["command", "rp_dir"]
+  },
+  "dir_compo_rename": {
+    "type": "object",
+    "properties": {
+      "compo_dir": {
+        "type": "string",
+        "description": "The directory of a specific component"
+      },
+      "match_type": {
+        "type": "string",
+        "description": "Get new name from key or value",
+        "enum": ["key", "value"]
+      },
+      "json_pointer": {
+        "type": "string",
+        "description": "The JSON pointer to the KV to match"
+      },
+      "ignore_prefix": {
+        "type": "string",
+        "description": "Ignore the prefix of the new name",
+        "default": ""
+      },
+      "output_format": {
+        "type": "string",
+        "description": "The output format string (C++20 <format>) of the new name",
+        "default": "{}"
+      }
+    },
+    "required": ["compo_dir", "match_type", "json_pointer"]
+  },
+  "rpi_compo_rename": {
+    "type": "object",
+    "properties": {
+      "infile_rpi": {
+        "type": "string",
+        "description": "The name of *.rpi input file, best to provide",
+        "default": "ThisRP.rpi"
+      },
+      "ignore_prefix": {
+        "type": "string",
+        "description": "Ignore the prefix of the new name",
+        "default": ""
+      },
+      "output_format": {
+        "type": "string",
+        "description": "The output format string (C++20 <format>) of the new name",
+        "default": "{}"
+      }
+    },
+    "required": ["infile_rpi"]
+  },
+  "unmerge": {
+    "type": "object",
+    "properties": {
+      "infiles": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The name array of component JSON input files (string[])"
+      },
+      "json_pointer": {
+        "type": "string",
+        "description": "The JSON pointer to the [object | array] to unmerge"
+      }
+    },
+    "required": ["infiles", "json_pointer"]
+  },
+  "merged": {
+    "type": "object",
+    "properties": {
+      "infiles": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "The name array of component JSON input files (string[])"
+      },
+      "json_pointer": {
+        "type": "string",
+        "description": "The JSON pointer to the [object | array] to merge"
+      }
+    },
+    "required": ["infiles", "json_pointer"]
+  },
+  "mat_forest": {
+    "type": "object",
+    "properties": {
+      "infile": {
+        "type": "string",
+        "description": "The name of material input file"
+      }
+    },
+    "required": ["infile"]
+  }
+}
