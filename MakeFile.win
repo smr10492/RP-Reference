@@ -10,7 +10,7 @@ BIN_DIR   = bin
 LIB_DIR   = lib
 
 # Include paths
-INCLUDE_PATHS = -Iinclude -Isrc
+INCLUDE_PATHS = -Ithird_party -Isrc
 
 # Targets
 .PHONY: all pch libs rpref tools clean

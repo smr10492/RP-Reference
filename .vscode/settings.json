@@ -174,5 +174,6 @@
         "deepseek/deepseek-v4-pro"
       ]
     }
-  }
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }
