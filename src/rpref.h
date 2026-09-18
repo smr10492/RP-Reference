@@ -1,7 +1,7 @@
 //  ____ ____ ____    | RPRef
 // | __ | __ | __ |** | ResourcePack Reference
 // |   _|  __|   _|** | version 1.0.0
-// |_|__|_|**|_|__|ef | https://github.com/SusumaarT/RP-Reference
+// |_|__|_|**|_|__|ef | https://github.com/smr10492/RP-Reference
 
 /****************\
 |* unity header *|
