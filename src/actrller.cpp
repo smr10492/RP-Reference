@@ -2,7 +2,7 @@
 #include "common_impl.hpp"
 
 namespace rpr { // private
-RPR_DECL;
+RPR_USING;
 // class ACtrllers
 
 void ACtrllers::load(istream &is) {
@@ -23,7 +23,7 @@ void ACtrllers::load(istream &is) {
 } // namespace rpr
 
 namespace rpr { // public
-RPR_DECL;
+RPR_USING;
 // class ACtrller
 
 ACtrller::ACtrller(const json &obj) {

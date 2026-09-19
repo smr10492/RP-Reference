@@ -4,7 +4,7 @@
 #include "msg_collect.hpp"
 
 namespace hndimpl {
-RPR_DECL;
+RPR_USING;
 using namespace std;
 
 namespace sn_map {

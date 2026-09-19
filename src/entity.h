@@ -3,7 +3,7 @@
 #include "common.h"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 
 /// @brief Entity or Attachable
 class Entity {

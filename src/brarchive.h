@@ -15,7 +15,7 @@ public:
 };
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 using std::ostream;
 using std::find_if;
 

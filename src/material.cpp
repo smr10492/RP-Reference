@@ -2,7 +2,7 @@
 #include "common_impl.hpp"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 using std::set;
 
 Material::Material(const json &obj):

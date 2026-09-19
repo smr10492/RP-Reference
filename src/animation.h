@@ -4,7 +4,7 @@
 #include "merged_compo.hpp"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 using std::map;
 using std::set;
 
@@ -40,7 +40,6 @@ public:
     constexpr const set<string> &bone_names() const noexcept {return bone_names_;}
     inline bool contains(const string &bone_name) const {return bone_names_.count(bone_name) > 0;}
 };
-
 
 } // namespace rpr
 

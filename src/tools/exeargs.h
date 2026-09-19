@@ -2,6 +2,7 @@
 #define EXEARGS_H
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct args {
     int argc;
@@ -34,15 +35,16 @@ args_span args_find(args args, const char *key, int max_count) {
 }
 
 void set_accessed(bool *dest, args args, args_span span, bool value) {
-    for (int i = 0; i < span.len && span.ptr[i]; ++i) dest[span.ptr[i] - args.argv] = value;
+    for (int i = 0; i < span.len && span.ptr[i]; ++i) dest[i] = value;
 }
 void reverse_accessed(bool *accessed, int n) {
     for (int i = 0; i < n; ++i) accessed[i] = !accessed[i];
 }
 
 int get_accessed(char *dest[], args args, const bool *accessed) {
-    for (int i = 0; i < args.argc; ++i) if (accessed[i]) dest[i] = args.argv[i];
-    return args.argc;
+    char **p = dest;
+    for (int i = 0; i < args.argc; ++i) if (accessed[i]) *p++ = args.argv[i];
+    return p - dest;
 }
 
 #endif

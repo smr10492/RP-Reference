@@ -4,7 +4,7 @@
 #include "mermaid.h"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 using std::map;
 
 /// @brief 单个动画控制器（状态机）
@@ -62,7 +62,7 @@ public:
 
 } // namespace rpr
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 using namespace mmd;
 
 template<> void ACtrller::mmd_out<mmd_type::flow>  (ostream &os, bool with_header);

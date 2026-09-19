@@ -1,7 +1,7 @@
 #include "brarchive.h"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 // BrArch main
 
 bool BrArch::load(const string &file) {

@@ -2,7 +2,7 @@
 #include "common_impl.hpp"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 
 inline void Entity::_parse_description_impl(const json &descr) {
     if (descr.contains("identifier") && descr["identifier"].is_string()) {

@@ -2,7 +2,7 @@
 #include "common_impl.hpp"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 // class FileIndexer
 
 void FileIndexer::index([[maybe_unused]] void *data) {
@@ -65,7 +65,7 @@ void FileIndexer::dump(ostream &os) const {
 } // namespace rpr
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 // class RPIndexer
 
 FileIndexer RPIndexer::get_idx_impl(uint32_t compo_enum, istream &is) const {
@@ -162,7 +162,7 @@ void RPIndexer::index([[maybe_unused]] void *data, ostream *log) {
 } // namespace rpr
 
 namespace rpr { inline namespace rpidx {
-RPR_DECL;
+RPR_USING;
 
 static bool _try_get_json(const string &file, json &obj) {
     using namespace std;

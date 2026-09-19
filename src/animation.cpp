@@ -2,7 +2,7 @@
 #include "common_impl.hpp"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 // class Animations
 
 template<> void Animations::load(istream &is) {
@@ -23,7 +23,7 @@ template<> void Animations::load(istream &is) {
 } // namespace rpr
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 // class Animation
 
 void Animation::load(const json &obj) {

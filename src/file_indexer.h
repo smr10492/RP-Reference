@@ -3,8 +3,26 @@
 #include "common.h"
 #include "brarchive.h"
 
+namespace rpr { inline namespace rpidx {
+RPR_USING;
+
+template<rpr_base::compos_t c>
+vector<string> key_getter(const string &file, void *data = nullptr) = delete;
+
+template<> vector<string> key_getter<rpr_base::mat>(const string &file, void *data);
+template<> vector<string> key_getter<rpr_base::tex>(const string &file, void *data);
+template<> vector<string> key_getter<rpr_base::geo>(const string &file, void *data);
+template<> vector<string> key_getter<rpr_base::ani>(const string &file, void *data);
+template<> vector<string> key_getter<rpr_base::act>(const string &file, void *data);
+template<> vector<string> key_getter<rpr_base::rct>(const string &file, void *data);
+template<> vector<string> key_getter<rpr_base::prt>(const string &file, void *data);
+template<> vector<string> key_getter<rpr_base::snd>(const string &file, void *data);
+
+} // namespace rpidx
+} // namespace rpr
+
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 
 class RPIndexer;
 
@@ -162,24 +180,6 @@ public:
     void index(void *data = nullptr, ostream *log = nullptr);
     inline void dump(ostream &os) const {rpi_br_.dump(os);}
 };
-} // namespace rpr
-
-namespace rpr { inline namespace rpidx {
-RPR_DECL;
-
-template<rpr_base::compos_t c>
-vector<string> key_getter(const string &file, void *data = nullptr) = delete;
-
-template<> vector<string> key_getter<rpr_base::mat>(const string &file, void *data);
-template<> vector<string> key_getter<rpr_base::tex>(const string &file, void *data);
-template<> vector<string> key_getter<rpr_base::geo>(const string &file, void *data);
-template<> vector<string> key_getter<rpr_base::ani>(const string &file, void *data);
-template<> vector<string> key_getter<rpr_base::act>(const string &file, void *data);
-template<> vector<string> key_getter<rpr_base::rct>(const string &file, void *data);
-template<> vector<string> key_getter<rpr_base::prt>(const string &file, void *data);
-template<> vector<string> key_getter<rpr_base::snd>(const string &file, void *data);
-
-} // namespace rpidx
 } // namespace rpr
 
 #endif // FILE_INDEX_H

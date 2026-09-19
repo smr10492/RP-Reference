@@ -2,7 +2,7 @@
 #include "common_impl.hpp"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 // class Geometries
 
 template<> void Geometries::load(istream &is) {
@@ -25,7 +25,7 @@ template<> void Geometries::load(istream &is) {
 } // namespace rpr
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 // class Geometry
 
 void Geometry::load(const json &obj) {

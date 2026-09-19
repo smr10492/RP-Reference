@@ -4,7 +4,7 @@
 #include "merged_compo.hpp"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 using std::map;
 using std::set;
 

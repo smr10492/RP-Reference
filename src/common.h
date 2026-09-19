@@ -32,7 +32,7 @@
 
 namespace mmd {} 
 
-#define RPR_DECL \
+#define RPR_USING \
     using namespace mmd; \
     namespace fs = std::filesystem; \
     using json = nlohmann::json; \

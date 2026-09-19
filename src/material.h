@@ -3,7 +3,7 @@
 #include "common.h"
 
 namespace rpr {
-RPR_DECL;
+RPR_USING;
 using std::pair;
 
 class Material {

@@ -5,7 +5,7 @@
 
 rprmcp::Server main_reg_server(rprmcp::Server &server) {
 #define MCP_TOOL(var) [](const nlohmann::json &var) -> rprmcp::CallToolResult
-RPR_DECL;
+RPR_USING;
 using namespace std;
 using namespace rpr;
 
