@@ -1,26 +1,21 @@
 #include "exeargs.h"
 #include "pipeio.h"
 
-const char *const RPR_CMD = "rpr.exe -tool=br_zip";
+const char *const RPR_CMD = "rpr.exe -tool=br_merge";
 
 int main(int argc, const char *argv[]) {
     args_span span;
     args args = {argc, argv, '-'};
-    char **infiles_p = NULL;
     if (argc < 2) {puts(
         "Archive all files to <dir: where the first file is>.brarchive\n"
-        "Usage: brzip [-T: thin index] <infiles...>"
+        "Usage: brmrg <outfile> <infiles...>"
     ); return 0;}
-
-    span = args_find(args, "-T", -1);
-    infiles_p = argv + (span.ptr? 2 : 1);
-    if (!infiles_p) return 0;
 
     FILE *pipe = popen(RPR_CMD, "w");
     if (!pipe) {fputs("failed to open rpr.exe pipe", stderr); return 2;}
     pbegin_opts     (pipe);
-    pprint_boolopt  (pipe, "with_data", !span.ptr);
-    pprint_arrstropt(pipe, "infiles_br", infiles_p, argv + argc);
+    pprint_stropt   (pipe, "outfile_br", argv[1]);
+    pprint_arrstropt(pipe, "infiles_br", argv + 2, argv + argc);
     pend_opts       (pipe);
     fflush(pipe);
 

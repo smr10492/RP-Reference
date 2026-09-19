@@ -1,6 +1,6 @@
 # ResourcePack Reference (RPR)
 
-> **This is the first release version. The standalone toolset is not yet complete; related tools will be added in future updates, and this sentence will be removed.**
+> **This is the first release version. The subtool set is not yet complete; related tools will be added in future updates, and this sentence will be removed.**
 
 - [README 中文](README.md)
 - [README English](README_EN.md)
@@ -8,7 +8,7 @@
 
 ![icon](resource/icon.png) A static analysis toolset for Minecraft: Bedrock Edition resource packs.
 
-`rpr.exe` is the main program (the actual execution backend). The other programs are standalone tools that translate arguments and invoke `rpr.exe`.
+`rpr.exe` is the main program (the actual execution backend). The other programs are subtools that translate arguments and invoke `rpr.exe`.
 
 Some tools depend on `.rpi` (ResourcePack Index) files. It is recommended to run `rpi_index` first to generate the index file.
 
@@ -26,7 +26,7 @@ Some tools depend on `.rpi` (ResourcePack Index) files. It is recommended to run
 
 ## Tool List
 
-> The tool names in this list are MCP server tool names and are not necessarily the same as the standalone tool names.
+> The tool names in this list are MCP server tool names and are not necessarily the same as the subtool names.
 
 - `ac_to_mmd`: Converts **animation controllers** into Mermaid state diagrams or flowcharts, making it easier to inspect state machine logic.
 - `rpi_index`: Scans a resource pack directory and generates a **.rpi** index file.

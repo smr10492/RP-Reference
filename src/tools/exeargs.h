@@ -1,6 +1,7 @@
 #ifndef EXEARGS_H
 #define EXEARGS_H
 #include <string.h>
+#include <stdlib.h>
 
 typedef struct args {
     int argc;
@@ -13,10 +14,7 @@ typedef struct args_span {
     int len;
 } args_span;
 
-/// @brief 查找指定的参数并返回参数区域
-/// @param key 参数名称，NULL表示匹配程序名（此时max_count无效）
-/// @param max_count 最大匹配长度，-1表示完全匹配
-/// @return 参数区域
+/// @param max_count: (-1) for any, (0) for prefix match, (>0) for partial match
 args_span args_find(args args, const char *key, int max_count) {
     const char **p_begin = NULL;
     const char **p_end   = NULL;
@@ -33,6 +31,18 @@ args_span args_find(args args, const char *key, int max_count) {
     }
     if (!p_end) p_end = args.argv + args.argc;
     return (args_span){p_begin, p_end - p_begin};
+}
+
+void set_accessed(bool *dest, args args, args_span span, bool value) {
+    for (int i = 0; i < span.len && span.ptr[i]; ++i) dest[span.ptr[i] - args.argv] = value;
+}
+void reverse_accessed(bool *accessed, int n) {
+    for (int i = 0; i < n; ++i) accessed[i] = !accessed[i];
+}
+
+int get_accessed(char *dest[], args args, const bool *accessed) {
+    for (int i = 0; i < args.argc; ++i) if (accessed[i]) dest[i] = args.argv[i];
+    return args.argc;
 }
 
 #endif
